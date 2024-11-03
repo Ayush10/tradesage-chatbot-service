@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package settings;
+
+option go_package = "github.com/your-repo-name/internal/pb";
+
+// Manages user settings and preferences
+service SettingsService {
+  // Get user settings
+  rpc GetSettings(GetSettingsRequest) returns (GetSettingsResponse);
+  // Update user settings
+  rpc UpdateSettings(UpdateSettingsRequest) returns (UpdateSettingsResponse);
+}
+
+// Basic user settings
+message Settings {
+  string user_id = 1;
+  string theme = 2;         // light/dark
+  string language = 3;      // en/zh etc
+  bool notifications_enabled = 4;
+  string timezone = 5;
+}
+
+message GetSettingsRequest {
+  string user_id = 1;
+}
+
+message GetSettingsResponse {
+  Settings settings = 1;
+}
+
+message UpdateSettingsRequest {
+  Settings settings = 1;
+}
+
+message UpdateSettingsResponse {
+  bool success = 1;
+  string message = 2;
+}

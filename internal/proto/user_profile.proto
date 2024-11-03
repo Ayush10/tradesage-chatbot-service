@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package userprofile;
+
+option go_package = "github.com/Ayush10/tradesage-chatbot-service/internal/pb";
+
+// User profile service interface
+service UserProfileService {
+    // Get user profile by ID
+    rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
+    // Create a new user profile
+    rpc CreateProfile(CreateProfileRequest) returns (CreateProfileResponse);
+    // Update existing user profile
+    rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+    // Delete user profile
+    rpc DeleteProfile(DeleteProfileRequest) returns (DeleteProfileResponse);
+}
+
+// Basic user profile data
+message Profile {
+    string user_id = 1;
+    string name = 2;
+    string email = 3;
+    string phone = 4;
+    string avatar_url = 5;
+}
+
+message GetProfileRequest {
+    string user_id = 1;
+}
+
+message GetProfileResponse {
+    Profile profile = 1;
+}
+
+message CreateProfileRequest {
+    string name = 1;
+    string email = 2;
+    string phone = 3;
+    string avatar_url = 4;
+}
+
+message CreateProfileResponse {
+    Profile profile = 1;
+    bool success = 2;
+    string message = 3;
+}
+
+message UpdateProfileRequest {
+    string user_id = 1;
+    optional string name = 2;
+    optional string email = 3;
+    optional string phone = 4;
+    optional string avatar_url = 5;
+}
+
+message UpdateProfileResponse {
+    Profile profile = 1;
+    bool success = 2;
+    string message = 3;
+}
+
+message DeleteProfileRequest {
+    string user_id = 1;
+}
+
+message DeleteProfileResponse {
+    bool success = 1;
+    string message = 2;
+}

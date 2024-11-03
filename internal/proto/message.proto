@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package messaging;
+
+option go_package = "github.com/your-repo-name/internal/pb";
+
+// Handles user-to-user messaging
+service MessagingService {
+  // Send a message
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+  // Get message history
+  rpc GetMessages(GetMessagesRequest) returns (GetMessagesResponse);
+  // Real-time message stream
+  rpc StreamMessages(stream Message) returns (stream Message);
+}
+
+// Basic message structure
+message Message {
+  string id = 1;
+  string sender_id = 2;
+  string recipient_id = 3;
+  string content = 4;
+  bool read = 5;
+  int64 sent_at = 6;
+}
+
+message SendMessageRequest {
+  string sender_id = 1;
+  string recipient_id = 2;
+  string content = 3;
+}
+
+message SendMessageResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetMessagesRequest {
+  string user_id = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message GetMessagesResponse {
+  repeated Message messages = 1;
+  int32 total = 2;
+}
